@@ -1,7 +1,7 @@
 import shortid from 'shortid';
 import { useSelector, useDispatch } from 'react-redux';
 import { addContact, deleteContact } from './redux/contactsSlice';
-import { filterSlice } from './redux/filterSlice';
+import { changeFilter } from './redux/filterSlice';
 import SubmitForm from './SubmitForm/SubmitForm';
 import Contacts from './Contacts/Contacts';
 import Filter from './Filter/Filter';
@@ -11,17 +11,6 @@ export function App() {
   const contacts = useSelector(state => state.contacts);
   const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
-
-  // const setStartContacts = () => {
-  //   if (JSON.parse(localStorage.getItem('contacts'))) {
-  //     return JSON.parse(localStorage.getItem('contacts'));
-  //   }
-  //   return [];
-  // };
-
-  // useEffect(() => {
-  //   localStorage.setItem('contacts', JSON.stringify(contacts));
-  // }, [contacts]);
 
   const onFormResponse = data => {
     for (const contact of contacts) {
@@ -44,7 +33,7 @@ export function App() {
   };
 
   const onInputFilter = evt => {
-    dispatch(filterSlice(evt.currentTarget.value));
+    dispatch(changeFilter(evt.currentTarget.value));
   };
 
   const filtredContacts = contacts.filter(contact =>
